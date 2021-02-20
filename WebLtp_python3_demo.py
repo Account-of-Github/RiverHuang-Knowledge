@@ -6,6 +6,16 @@ import urllib.parse
 import json
 import hashlib
 import base64
+'''
+这是讯飞平台依存句法分析的demo
+可以在平台的api文档中下载
+
+1.以下三点需要替换为自己需要的
+2.执行程序，报错信息中找到自己的ip
+3.将ip添加到白名单中
+4.等待一段时间后，再次执行即可
+
+'''
 #接口地址
 url ="http://ltpapi.xfyun.cn/v1/cws"
 #开放平台应用ID
