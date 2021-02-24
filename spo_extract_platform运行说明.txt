@@ -1,0 +1,33 @@
+参考项目地址https://github.com/percent4/spo_extract_platform/
+环境说明：
+python3.6
+除去pyltp包外，其它包均可使用pip下载
+pyltp包请使用whl文件安装
+
+使用前请配置：
+修改sequence_labeling/ckpt/checkpoint中的路径为本地路径
+
+一、platform启动说明：
+1. 使用标注功能 
+预处理： 在spo_tagging_platform文件夹下，建立文件夹tagging_output, relation_output
+启动 tagging_server.py
+访问http://localhost:9009/query
+
+2. 使用预测功能 
+启动
+spo_tagging_platform/tagging_server.py
+sequence_labeling/run.py
+text_classification.py
+访问http://localhost:9009/predict
+
+二、sequence_labeling
+运行predict.py可进行手动输入预测
+
+train.py进行训练（请慎重执行，需要大量的时间完成）
+训练步骤（未验证）：
+1.标注
+2. 执行sequence_labeling/get_ data.py 将数据从tagging_output获取出来
+3. 执行train.py
+
+三、 text_classification
+

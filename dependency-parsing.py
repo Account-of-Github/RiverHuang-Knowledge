@@ -15,6 +15,8 @@ baseUrl = "http://ltpapi.xfyun.cn/v1"
 cwsUrl = baseUrl + "/cws"
 #依存句法分析
 dpUrl = baseUrl + "/dp"
+#语义依存分析（树）
+sdpUrl = baseUrl + "/sdp"
 #测试用url
 url ="http://ltpapi.xfyun.cn/v1/dp"
 #开放平台应用ID
@@ -35,41 +37,51 @@ def analyse(sentence):
                 'X-CurTime': x_time,
                 'X-Param': x_param,
                 'X-CheckSum': x_checksum}
+
     cwsReq = urllib.request.Request(cwsUrl, body, x_header)
     cwsResult = urllib.request.urlopen(cwsReq)
     cwsResult = cwsResult.read()
-    print(cwsResult.decode('utf-8'))
+
     data = json.loads(cwsResult.decode('utf-8'))['data']
     word = data['word']
 
     dpReq = urllib.request.Request(dpUrl, body, x_header)
     dpResult = urllib.request.urlopen(dpReq)
     dpResult = dpResult.read()
-    print(dpResult.decode('utf-8'))
+
     data = json.loads(dpResult.decode('utf-8'))['data']
     dp = data['dp']
 
+    sdpReq = urllib.request.Request(sdpUrl, body, x_header)
+    sdpResult = urllib.request.urlopen(sdpReq)
+    sdpResult = sdpResult.read()
+
+    data = json.loads(sdpResult.decode('utf-8'))['data']
+    sdp = data['sdp']
+
     print(word)
     print(dp)
+    # print(sdp)
     #返回值修改为需要的格式
     rs = {
         'word': word,
-        'dp': dp
+        'dp': dp,
+        'sdp': sdp
     }
-
 
     return rs
 
 
 def main():
+    analyse(TEXT)
     #处理并输出到文件中
-    out_file =  out_file = open('out-2.txt', 'w',encoding='UTF-8')
-    with open('out.txt', 'r', encoding='UTF-8') as f:
-        for line in f:
-            d = analyse(line.strip())
-            out_file.write(str(d))
-            print(str(d))
-    return
+    # out_file =  out_file = open('out-2.txt', 'w',encoding='UTF-8')
+    # with open('out.txt', 'r', encoding='UTF-8') as f:
+    #     for line in f:
+    #         d = analyse(line.strip())
+    #         out_file.write(str(d) + "\n")
+    #         #print(str(d))
+    # return
 
 if __name__ == '__main__':
     main()
